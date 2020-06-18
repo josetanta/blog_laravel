@@ -1,0 +1,31 @@
+.img-account {
+  width: 150px;
+  height: 150px;
+  border-radius: 20%;
+}
+
+.img-current_user {
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+}
+
+.img-comment-user {
+  width: 35px;
+  height: 35px;
+  border-radius: 5%;
+}
+
+.link-post {
+	border-radius: 10rem;
+	padding: 5px 10px;
+	color: rgba(200,120,160,.8);
+	text-decoration: none;
+	transition: .2s all ease;
+}
+
+.link-post:hover {
+	color: rgba(20,60,40,.8);
+	background-color: rgba(224,220,200,.4);
+	text-decoration: none;
+}
