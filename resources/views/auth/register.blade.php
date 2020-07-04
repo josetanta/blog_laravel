@@ -1,23 +1,17 @@
 @extends('layouts.app')
 @section('title','Registrarse')
 @section('body')
-
 <body class="bg-gradient-primary">
 
 	<div class="container">
-
-		<div class="card o-hidden border-0 shadow-lg my-5">
-			<div class="card-body p-0">
-				<!-- Nested Row within Card Body -->
-				<div class="row">
-					{{-- bg-register-image --}}
-					<div class="col-lg-5 d-none d-lg-block "></div>
-					<div class="col-lg-7">
+		<div class="row justify-content-center">
+			<div class="col-7">
+				<div class="card o-hidden border-0 shadow-lg my-5">
+					<div class="card-body p-0">
 						<div class="p-5">
 							<div class="text-center">
 								<h1 class="h4 text-gray-900 mb-4">Registrarse</h1>
 							</div>
-
 							<form method="POST" action="{{ route('register') }}" class="user">
 								@csrf
 								<div class="form-group row">
@@ -69,16 +63,8 @@
 								<button type="submit" class="btn btn-primary btn-user btn-block">
 									{{ __('Register') }}
 								</button>
-								<hr>
-								{{-- <a href="{{ url('/') }}" class="btn btn-google btn-user btn-block">
-									<i class="fab fa-google fa-fw"></i> Register with Google
-								</a>
-								<a href="{{ url('/') }}" class="btn btn-facebook btn-user btn-block">
-									<i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
-								</a> --}}
 							</form>
 
-							<!-- FORM LOGIN -->
 							<hr>
 							<div class="text-center">
 								<a class="small" href="#">Forgot Password?</a>
@@ -89,9 +75,10 @@
 						</div>
 					</div>
 				</div>
+
 			</div>
 		</div>
-
 	</div>
+
 </body>
 @endsection

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\{Profile, Image};
 use Illuminate\Support\Str;
 use App\Http\Requests\ProfileRequest;
-use App\{Profile, Image};
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\{Auth, Storage};
+use Intervention\Image\Facades\Image as ImageFacade;
 
 class ProfileController extends Controller
 {
@@ -53,14 +53,38 @@ class ProfileController extends Controller
 	public function update(ProfileRequest $request, Profile $profile)
 	{
 
-		$data  = $request->all();
-		// Poner el campo del Modelo Profile(en este caso es image_id)
-		if($request->hasFile('image')){
-			Storage::delete('public/' . $profile->image->ruta);
-			$data['image'] = $request->file('image')->store('uploads/profiles','public');
-			$new_image = Image::create(['ruta' => $data['image']]);
+		$data = $request->all();
+		if ($request->hasFile('image')) {
+
+			if(isset($profile->image->ruta)){
+				Storage::delete('public/' . $profile->image->ruta);
+			}
+
+			$image = $request->file('image');
+			$data['image'] = time() . 'profile' . '.' .$image->extension();
+
+			$resize_img = ImageFacade::make($image->getRealPath())
+				->resize(500,500, function ($constraint)
+					{
+						$constraint->aspectRatio();
+					}
+				)->save(storage_path('app/public/uploads/profiles/' . $data['image']));
+
+			$new_image = Image::create(['ruta' => 'uploads/profiles/'.$data['image']]);
 			$profile->image_id = $new_image->id;
 		}
+
+
+
+
+		// $data  = $request->all();
+		// // Poner el campo del Modelo Profile(en este caso es image_id)
+		// if($request->hasFile('image')){
+		// 	Storage::delete('public/' . $profile->image->ruta);
+		// 	$data['image'] = $request->file('image')->store('uploads/profiles','public');
+		// 	$new_image = Image::create(['ruta' => $data['image']]);
+		// 	$profile->image_id = $new_image->id;
+		// }
 
 		$profile->update($data,['slug' => auth()->user()->slug]);
 

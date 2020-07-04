@@ -17,6 +17,15 @@ class Role extends Model
   {
     return $this->belongsToMany(User::class)->withPivot('user_id');
   }
+
+  /**
+  * @method bool
+  */
+  public function has_permission($permission)
+  {
+    return $this->permissions & $permission == $permission;
+  }
+
   /**
    * @method generate_roles
    */
@@ -36,8 +45,6 @@ class Role extends Model
     }
   }
 }
-
-
 
 class Permissions
 {

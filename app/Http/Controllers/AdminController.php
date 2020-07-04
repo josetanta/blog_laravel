@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Comment;
 use App\Providers\RouteServiceProvider;
+use App\Role;
 use App\{User, Post};
 use Illuminate\Http\Request;
 
@@ -19,7 +20,7 @@ class AdminController extends Controller
 
 	public function indexUsers()
 	{
-		$users = User::all();
+		$users = Role::find(1)->users;
 		return view('admin.users.index', compact('users'));
 	}
 

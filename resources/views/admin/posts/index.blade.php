@@ -32,7 +32,6 @@
 							<th>Descripción</th>
 							<th>Autor</th>
 							<th>Fecha de Creación</th>
-							<th>Accion</th>
 						</tr>
 					</tfoot>
 					<tbody>
@@ -44,8 +43,7 @@
 							<td>{{ $post->user->name }} <br><a href="{{ route('admin.profile.show',$post->user->profile->id) }}" class="small text-info">{{ $post->user->email }}</a></td>
 							<td>{{ $post->created_at }}</td>
 							<td class="small" colspan="2">
-								<a class="btn-sm btn-outline-info " href="#">Editar</a>
-								<a class="btn-sm btn-danger " href="#">Eliminar</a>
+								<a class="btn-sm btn-outline-warning " href="#">Prohibir Post</a>
 							</td>
 						</tr>
 						@empty

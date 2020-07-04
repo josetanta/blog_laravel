@@ -2,12 +2,11 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-use App\User;
 use App\Image;
+use App\User;
+use Illuminate\Database\Eloquent\Model;
 
-class Profile extends Model
-{
+class Profile extends Model {
 	protected $fillable = [
 		'direccion',
 		'historial',
@@ -24,13 +23,11 @@ class Profile extends Model
 		'slug' => 'string',
 	];
 
-	public function user()
-	{
+	public function user() {
 		return $this->belongsTo(User::class);
 	}
 
-	public function image()
-	{
+	public function image() {
 		return $this->belongsTo(Image::class);
 	}
 }

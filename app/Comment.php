@@ -2,11 +2,11 @@
 
 namespace App;
 
+use App\Post;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
-use App\{Post, User};
 
-class Comment extends Model
-{
+class Comment extends Model {
 	protected $fillable = [
 		'body',
 		'user_id',
@@ -19,13 +19,11 @@ class Comment extends Model
 		'body' => 'text',
 	];
 
-	public function post()
-	{
+	public function post() {
 		return $this->belongsTo(Post::class);
 	}
 
-	public function user()
-	{
+	public function user() {
 		return $this->belongsTo(User::class);
 	}
 }

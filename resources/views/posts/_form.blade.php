@@ -17,7 +17,11 @@
 <div class="form-group small w-25">
 	<small class="small">
 		<input type="file" name="image" class="form-control-file" placeholder="Suba una imagen">
-		{{ $errors->first('image','<span>:message</span>') }}
+		@error('image')
+			<div class="invalid-feedback">
+				{{ $errors->first('image') }}
+			</div>
+		@enderror
 	</small>
 </div>
 <div class="form-group">

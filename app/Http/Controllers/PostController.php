@@ -6,8 +6,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PostRequest;
 use App\{Image, Post, Comment};
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\{Auth, Storage};
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Intervention\Image\Facades\Image as ImageFacade;
@@ -17,7 +16,7 @@ class PostController extends Controller
 
 	public function __construct()
 	{
-		$this->middleware('auth');
+		$this->middleware('auth')->except(['show']);
 	}
 
 	/**
@@ -98,11 +97,22 @@ class PostController extends Controller
 	{
 		$data = $request->all();
 		if ($request->hasFile('image')) {
+
 			if(isset($post->image->ruta)){
 				Storage::delete('public/' . $post->image->ruta);
 			}
-			$data['image'] = $request->file('image')->store('uploads/posts', 'public');
-			$new_image = Image::create(['ruta' => $data['image']]);
+
+			$image = $request->file('image');
+			$data['image'] = time() . '.' .$image->extension();
+
+			$resize_img = ImageFacade::make($image->getRealPath())
+				->resize(500,500, function ($constraint)
+					{
+						$constraint->aspectRatio();
+					}
+				)->save(storage_path('app/public/uploads/posts/' . $data['image']));
+
+			$new_image = Image::create(['ruta' => 'uploads/posts/'.$data['image']]);
 			$post->image_id = $new_image->id;
 		}
 

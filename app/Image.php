@@ -2,11 +2,11 @@
 
 namespace App;
 
+use App\Post;
+use App\Profile;
 use Illuminate\Database\Eloquent\Model;
-use App\{Profile, Post};
 
-class Image extends Model
-{
+class Image extends Model {
 	protected $fillable = [
 		'ruta',
 	];
@@ -15,13 +15,11 @@ class Image extends Model
 		'ruta' => 'string',
 	];
 
-	public function profile()
-	{
+	public function profile() {
 		return $this->hasOne(Profile::class);
 	}
 
-	public function post()
-	{
+	public function post() {
 		return $this->belongsTo(Post::class);
 	}
 }

@@ -172,25 +172,4 @@ class PostModuleTest extends TestCase
 				->assertRedirect(route('auth.posts.create',$auth));
 	}
 
-	/**
-	 * @test
-	*/
-	function it_validated_image_a_created_a_post()
-	{
-		// $this->withoutExceptionHandling();
-		Role::generate_roles();
-		$auth = factory(User::class)->create();
-		$image = Image::create();
-
-		$auth->createProfile($image);
-
-		$this->actingAs($auth)
-			->from(route('auth.posts.create',$auth))
-			->post(route('auth.posts.store', $auth),[
-				'title' => 'Post with Image',
-				'body' => 'This is post with Image',
-			])->assertSessionHasErrors(['image'])
-				->assertRedirect(route('auth.posts.create',$auth));
-	}
-
 }

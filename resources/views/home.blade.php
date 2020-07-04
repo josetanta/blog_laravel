@@ -12,7 +12,6 @@
 				@if ($post->image)
 				<img class="card-img-top" src="{{ asset('storage/'.$post->image->ruta) }}" alt="Card image cap">
 				@endif
-
 				<div class="card-body">
 					<div class="card-title">
 						<h4><a class="card-link" href="{{ route('posts.show', $post) }}">{{ $post['title'] }}</a></h4>
